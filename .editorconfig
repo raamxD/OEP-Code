@@ -1,1 +1,5 @@
+root = true
 
+[*.{java,txt}]
+indent_style = tab
+tab_width = 3
