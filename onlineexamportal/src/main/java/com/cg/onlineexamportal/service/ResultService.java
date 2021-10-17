@@ -9,6 +9,8 @@ import com.cg.onlineexamportal.model.Result;
 
 public interface ResultService {
 	
+	// result crud
+	
 	public ResponseEntity<List<Result>> getResults();
 	
 	public ResponseEntity<Result> getResultById(Long resultId) throws ResultNotFoundException;
@@ -18,4 +20,7 @@ public interface ResultService {
 	public ResponseEntity<Result> updateResultById(Long resultId, Result result) throws ResultNotFoundException;
 	
 	public ResponseEntity<Result> deleteResultById(Long resultId) throws ResultNotFoundException;
+	
+	// result functionalities
+	
 }
