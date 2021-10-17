@@ -52,35 +52,35 @@ Table Naming Convention :
 						user_username;
 						user_password;
 
-2) Table admin_table -> admin_id;
+2) Class admin_table -> admin_id;
 						admin_name;
 						admin_email;
 						admin_username;
 						admin_password;
 
-3) Table address_table -> 	address_id;
+3) Class address_table -> 	address_id;
 							address_zip;
 							address_city;
 							address_state;
 							address_country;
 
-4) Table test_table  ->		test_id;
+4) Class test_table  ->		test_id;
 							test_course_type;
 							test_start_time;
 							test_end_time;
 							test_exam_date;
 
-5) Table question_table	-> 	question_id;
+5) Class question_table	-> 	question_id;
 						    question_choice1;
 						    question_choice2;
 							question_choice3;
 							question_choice4;
 						    question_correct_choice;
 
-6) Table questionbank_table	->  questionbank_id;
+6) Class questionbank_table	->  questionbank_id;
 								questionbank_course_type;
 
-7) Table result_table	->	user_id;
+7) Class result_table	->	user_id;
 							test_id;
 							question_id;
 							choice_marked;

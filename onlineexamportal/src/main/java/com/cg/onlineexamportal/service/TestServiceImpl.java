@@ -37,6 +37,10 @@ public class TestServiceImpl implements TestService{
 	public ResponseEntity<Test> updateTestById(Long testId, Test test) throws TestNotFoundException {
 		Test newTest = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
 		// update data here
+		newTest.setTestCourseType(test.getTestCourseType());
+		newTest.setTestStartTime(test.getTestStartTime());
+		newTest.setTestEndTime(test.getTestEndTime());
+		newTest.setTestExamDate(test.getTestExamDate());
 		final Test updatedTest = testRepository.save(newTest);
 		return ResponseEntity.ok().body(updatedTest);
 	}

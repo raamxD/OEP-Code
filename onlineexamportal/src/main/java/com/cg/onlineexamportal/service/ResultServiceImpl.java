@@ -37,6 +37,10 @@ public class ResultServiceImpl implements ResultService{
 	public ResponseEntity<Result> updateResultById(Long resultId, Result result) throws ResultNotFoundException {
 		Result newResult = resultRepository.findById(resultId).orElseThrow(() -> new ResultNotFoundException("ID : " + resultId + " Not Found"));
 		// update data here
+		newResult.setUserId(result.getUserId());
+		newResult.setTestId(result.getTestId());
+		newResult.setQuestionId(result.getQuestionId());
+		newResult.setChoiceMarked(result.getChoiceMarked());
 		final Result updatedResult = resultRepository.save(newResult);
 		return ResponseEntity.ok().body(updatedResult);
 	}
