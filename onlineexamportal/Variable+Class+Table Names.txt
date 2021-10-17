@@ -1,0 +1,88 @@
+Classes Naming Convention : 
+
+1) Class User ->  	long userId;
+					String userName;
+					String userEmail;
+					String userUsername;
+					String userPassword;
+					Address userAddress;
+
+2) Class Admin -> 	long adminId;
+					String adminName;
+					String adminEmail;
+					String adminUsername;
+					String adminPassword;
+					Address adminAddress;
+
+3) Class Address -> long addressId;
+					long addressZip;
+					String addressCity;
+					String addressState;
+					String addressCountry;
+
+4) Class Test  ->	long testId;
+					String testCourseType;
+					Date testStartTime;
+					Date testEndTime;
+					Date testExamDate;
+
+5) Class Question	-> 	long questionId;
+						String questionChoice1;
+						String questionChoice2;
+						String questionChoice3;
+						String questionChoice4;
+						String questionCorrectChoice;
+
+6) Class QuestionBank	->  long questionbankId;
+							String questionbankCourseType;
+
+7) Class Result	->	long resultId;
+					long userId;
+					long testId;
+					long questionId;
+					String choiceMarked;
+
+==================================================================================================================
+
+Table Naming Convention :
+
+1) Table user_table ->  user_id;
+						user_name;
+						user_email;
+						user_username;
+						user_password;
+
+2) Table admin_table -> admin_id;
+						admin_name;
+						admin_email;
+						admin_username;
+						admin_password;
+
+3) Table address_table -> 	address_id;
+							address_zip;
+							address_city;
+							address_state;
+							address_country;
+
+4) Table test_table  ->		test_id;
+							test_course_type;
+							test_start_time;
+							test_end_time;
+							test_exam_date;
+
+5) Table question_table	-> 	question_id;
+						    question_choice1;
+						    question_choice2;
+							question_choice3;
+							question_choice4;
+						    question_correct_choice;
+
+6) Table questionbank_table	->  questionbank_id;
+								questionbank_course_type;
+
+7) Table result_table	->	user_id;
+							test_id;
+							question_id;
+							choice_marked;
+
+==================================================================================================================
