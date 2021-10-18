@@ -9,8 +9,6 @@ import com.cg.onlineexamportal.model.Question;
 
 public interface QuestionService {
 	
-	// question crud
-	
 	public ResponseEntity<List<Question>> getQuestions();
 	
 	public ResponseEntity<Question> getQuestionById(Long questionId) throws QuestionNotFoundException;
@@ -20,7 +18,4 @@ public interface QuestionService {
 	public ResponseEntity<Question> updateQuestionById(Long questionId, Question question) throws QuestionNotFoundException;
 	
 	public ResponseEntity<Question> deleteQuestionById(Long questionId) throws QuestionNotFoundException;
-	
-	// question functionalities
-	
 }

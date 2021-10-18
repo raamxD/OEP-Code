@@ -9,8 +9,6 @@ import com.cg.onlineexamportal.model.Address;
 
 public interface AddressService {
 	
-	// address crud
-	
 	public ResponseEntity<List<Address>> getAddresses();
 	
 	public ResponseEntity<Address> getAddressById(Long addressId) throws AddressNotFoundException;
@@ -20,8 +18,4 @@ public interface AddressService {
 	public ResponseEntity<Address> updateAddressById(Long addressId, Address address) throws AddressNotFoundException;
 	
 	public ResponseEntity<Address> deleteAddressById(Long addressId) throws AddressNotFoundException;
-	
-	// address functionalities
-	
-	
 }

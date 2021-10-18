@@ -9,8 +9,6 @@ import com.cg.onlineexamportal.model.QuestionBank;
 
 public interface QuestionBankService {
 	
-	// questionbank crud
-	
 	public ResponseEntity<List<QuestionBank>> getQuestionBanks();
 	
 	public ResponseEntity<QuestionBank> getQuestionBankById(Long questionBankId) throws QuestionBankNotFoundException;
@@ -20,7 +18,4 @@ public interface QuestionBankService {
 	public ResponseEntity<QuestionBank> updateQuestionBankById(Long questionBankId, QuestionBank questionBank) throws QuestionBankNotFoundException;
 	
 	public ResponseEntity<QuestionBank> deleteQuestionBankById(Long questionBankId) throws QuestionBankNotFoundException;
-	
-	// questionbank functionalities
-	
 }

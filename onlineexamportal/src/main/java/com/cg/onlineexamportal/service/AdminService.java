@@ -9,8 +9,6 @@ import com.cg.onlineexamportal.model.Admin;
 
 public interface AdminService {
 	
-	// admin crud
-	
 	public ResponseEntity<List<Admin>> getAdmins();
 	
 	public ResponseEntity<Admin> getAdminById(Long adminId) throws AdminNotFoundException;
@@ -20,6 +18,4 @@ public interface AdminService {
 	public ResponseEntity<Admin> updateAdminById(Long adminId, Admin admin) throws AdminNotFoundException;
 	
 	public ResponseEntity<Admin> deleteAdminById(Long adminId) throws AdminNotFoundException;
-
-	// admin functionalities
 }
