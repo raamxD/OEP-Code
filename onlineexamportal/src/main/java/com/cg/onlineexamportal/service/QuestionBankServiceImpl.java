@@ -38,6 +38,7 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 		QuestionBank newQuestionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("ID : " + questionBankId + " Not Found"));
 		// update data here
 		newQuestionBank.setQuestionbankCourseType(questionBank.getQuestionbankCourseType());
+		newQuestionBank.setQuestionbankQuestions(questionBank.getQuestionbankQuestions());
 		final QuestionBank updatedQuestionBank = questionBankRepository.save(newQuestionBank);
 		return ResponseEntity.ok().body(updatedQuestionBank);
 	}

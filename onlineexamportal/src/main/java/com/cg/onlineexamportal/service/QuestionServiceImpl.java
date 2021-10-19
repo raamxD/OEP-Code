@@ -37,6 +37,7 @@ public class QuestionServiceImpl implements QuestionService{
 	public ResponseEntity<Question> updateQuestionById(Long questionId, Question question) throws QuestionNotFoundException {
 		Question newQuestion = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("ID : " + questionId + " Not Found"));
 		// update data here
+		newQuestion.setQuestionSentence(question.getQuestionSentence());
 		newQuestion.setQuestionChoice1(question.getQuestionChoice1());
 		newQuestion.setQuestionChoice2(question.getQuestionChoice2());
 		newQuestion.setQuestionChoice3(question.getQuestionChoice3());
