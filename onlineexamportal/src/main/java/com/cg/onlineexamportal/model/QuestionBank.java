@@ -1,10 +1,16 @@
 package com.cg.onlineexamportal.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,20 +26,26 @@ public class QuestionBank {
 	
 	@Column(name = "questionbank_course_type")
 	private String questionbankCourseType;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_questionbank_id", referencedColumnName = "questionbank_id")
+	private Set<Question> questionbankQuestions;
 
 	public QuestionBank() {
 		super();
 	}
 
-	public QuestionBank(String questionbankCourseType) {
+	public QuestionBank(String questionbankCourseType, Set<Question> questionbankQuestions) {
 		super();
 		this.questionbankCourseType = questionbankCourseType;
+		this.questionbankQuestions = questionbankQuestions;
 	}
 
-	public QuestionBank(long questionbankId, String questionbankCourseType) {
+	public QuestionBank(long questionbankId, String questionbankCourseType, Set<Question> questionbankQuestions) {
 		super();
 		this.questionbankId = questionbankId;
 		this.questionbankCourseType = questionbankCourseType;
+		this.questionbankQuestions = questionbankQuestions;
 	}
 
 	public long getQuestionbankId() {
@@ -52,9 +64,17 @@ public class QuestionBank {
 		this.questionbankCourseType = questionbankCourseType;
 	}
 
+	public Set<Question> getQuestionbankQuestions() {
+		return questionbankQuestions;
+	}
+
+	public void setQuestionbankQuestions(Set<Question> questionbankQuestions) {
+		this.questionbankQuestions = questionbankQuestions;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionBank [questionbankId=" + questionbankId + ", questionbankCourseType=" + questionbankCourseType
-				+ "]";
-	}	
+				+ ", questionbankQuestions=" + questionbankQuestions + "]";
+	}
 }

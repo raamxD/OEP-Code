@@ -1,11 +1,16 @@
 package com.cg.onlineexamportal.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,20 +40,27 @@ public class Admin {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address adminAddress;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_admin_id", referencedColumnName = "admin_id")
+	private Set<Test> adminTests;
+	
 	public Admin() {
 		super();
 	}
 
-	public Admin(String adminName, String adminEmail, String adminUsername, String adminPassword, Address adminAddress) {
+	public Admin(String adminName, String adminEmail, String adminUsername, String adminPassword, Address adminAddress,
+			Set<Test> adminTests) {
 		super();
 		this.adminName = adminName;
 		this.adminEmail = adminEmail;
 		this.adminUsername = adminUsername;
 		this.adminPassword = adminPassword;
 		this.adminAddress = adminAddress;
+		this.adminTests = adminTests;
 	}
-	
-	public Admin(long adminId, String adminName, String adminEmail, String adminUsername, String adminPassword, Address adminAddress) {
+
+	public Admin(long adminId, String adminName, String adminEmail, String adminUsername, String adminPassword,
+			Address adminAddress, Set<Test> adminTests) {
 		super();
 		this.adminId = adminId;
 		this.adminName = adminName;
@@ -56,6 +68,7 @@ public class Admin {
 		this.adminUsername = adminUsername;
 		this.adminPassword = adminPassword;
 		this.adminAddress = adminAddress;
+		this.adminTests = adminTests;
 	}
 
 	public long getAdminId() {
@@ -106,9 +119,18 @@ public class Admin {
 		this.adminAddress = adminAddress;
 	}
 
+	public Set<Test> getAdminTests() {
+		return adminTests;
+	}
+
+	public void setAdminTests(Set<Test> adminTests) {
+		this.adminTests = adminTests;
+	}
+
 	@Override
 	public String toString() {
-		return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", adminEmail=" + adminEmail + ", adminUsername="
-				+ adminUsername + ", adminPassword=" + adminPassword + ", adminAddress=" + adminAddress + "]";
+		return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", adminEmail=" + adminEmail
+				+ ", adminUsername=" + adminUsername + ", adminPassword=" + adminPassword + ", adminAddress="
+				+ adminAddress + ", adminTests=" + adminTests + "]";
 	}
 }

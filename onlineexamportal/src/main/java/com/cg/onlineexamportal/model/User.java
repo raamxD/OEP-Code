@@ -1,11 +1,17 @@
 package com.cg.onlineexamportal.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,20 +41,31 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address userAddress;
 
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
+//	private Set<Test> userTests;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "test_user_table", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="test_id"))
+	private Set<Test> userTests;
+	
 	public User() {
 		super();
 	}
 
-	public User(String userName, String userEmail, String userUsername, String userPassword, Address userAddress) {
+	public User(String userName, String userEmail, String userUsername, String userPassword, Address userAddress,
+			Set<Test> userTests) {
 		super();
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userUsername = userUsername;
 		this.userPassword = userPassword;
 		this.userAddress = userAddress;
+		this.userTests = userTests;
 	}
-	
-	public User(long userId, String userName, String userEmail, String userUsername, String userPassword, Address userAddress) {
+
+	public User(long userId, String userName, String userEmail, String userUsername, String userPassword,
+			Address userAddress, Set<Test> userTests) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -56,6 +73,7 @@ public class User {
 		this.userUsername = userUsername;
 		this.userPassword = userPassword;
 		this.userAddress = userAddress;
+		this.userTests = userTests;
 	}
 
 	public long getUserId() {
@@ -106,9 +124,18 @@ public class User {
 		this.userAddress = userAddress;
 	}
 
+	public Set<Test> getUserTests() {
+		return userTests;
+	}
+
+	public void setUserTests(Set<Test> userTests) {
+		this.userTests = userTests;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userUsername="
-				+ userUsername + ", userPassword=" + userPassword + ", userAddress=" + userAddress + "]";
+				+ userUsername + ", userPassword=" + userPassword + ", userAddress=" + userAddress + ", userTests="
+				+ userTests + "]";
 	}
 }

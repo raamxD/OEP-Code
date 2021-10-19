@@ -2,11 +2,13 @@ package com.cg.onlineexamportal.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,25 +44,32 @@ public class Test {
     @JsonFormat(pattern="yyyy-MM-dd")
 	private Date testExamDate;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private QuestionBank testQuestionBank;
+	
 	public Test() {
 		super();
 	}
 
-	public Test(String testCourseType, Date testStartTime, Date testEndTime, Date testExamDate) {
+	public Test(String testCourseType, Date testStartTime, Date testEndTime, Date testExamDate,
+			QuestionBank testQuestionBank) {
 		super();
 		this.testCourseType = testCourseType;
 		this.testStartTime = testStartTime;
 		this.testEndTime = testEndTime;
 		this.testExamDate = testExamDate;
+		this.testQuestionBank = testQuestionBank;
 	}
 
-	public Test(long testId, String testCourseType, Date testStartTime, Date testEndTime, Date testExamDate) {
+	public Test(long testId, String testCourseType, Date testStartTime, Date testEndTime, Date testExamDate,
+			QuestionBank testQuestionBank) {
 		super();
 		this.testId = testId;
 		this.testCourseType = testCourseType;
 		this.testStartTime = testStartTime;
 		this.testEndTime = testEndTime;
 		this.testExamDate = testExamDate;
+		this.testQuestionBank = testQuestionBank;
 	}
 
 	public long getTestId() {
@@ -103,9 +112,11 @@ public class Test {
 		this.testExamDate = testExamDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Test [testId=" + testId + ", testCourseType=" + testCourseType + ", testStartTime=" + testStartTime
-				+ ", testEndTime=" + testEndTime + ", testExamDate=" + testExamDate + "]";
+	public QuestionBank getTestQuestionBank() {
+		return testQuestionBank;
+	}
+
+	public void setTestQuestionBank(QuestionBank testQuestionBank) {
+		this.testQuestionBank = testQuestionBank;
 	}
 }	
