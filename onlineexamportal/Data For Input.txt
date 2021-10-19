@@ -1,0 +1,114 @@
+OEP Data Input
+
+===================================================================
+
+User Data
+
+{
+   "userName":"Shoaib",
+   "userEmail":"shoaib@yahoo.com",
+   "userUsername":"shoaib1234",
+   "userPassword":"shoaibpass1234",
+   "userAddress":{
+      "addressZip":"454462",
+      "addressCity":"Mumbai",
+      "addressState":"Maharashtra",
+      "addressCountry":"India"
+   }
+}
+
+{
+   "userName":"Aboli",
+   "userEmail":"aboli@gmail.com",
+   "userUsername":"aboli1234",
+   "userPassword":"abolipass1234",
+   "userAddress":{
+      "addressZip":"700123",
+      "addressCity":"Chennai",
+      "addressState":"Tamil Nadu",
+      "addressCountry":"India"
+   }
+}
+
+===================================================================
+
+Admin Data
+
+{
+	"adminName":"Ram",
+	"adminEmail":"ram@gmail.com",
+	"adminUsername":"ram123",
+	"adminPassword":"pass123",
+	"adminAddress":{
+		"addressZip":"411039",
+		"addressCity":"Pune",
+		"addressState":"Maharashtra",
+		"addressCountry":"India"
+	}
+}
+
+===================================================================
+
+Test Data 1 (Science)
+
+{
+	"testCourseType":"Science",
+	"testStartTime":"2021-10-24 12:00:00",
+	"testEndTime":"2021-10-24 13:00:00",
+	"testExamDate":"2021-10-24",
+	"testQuestionBank":{
+		"questionbankCourseType":"Science_Biology",
+		"questionbankQuestions":[
+			{
+				"questionSentence":"The control centre of the human body is______",
+				"questionChoice1":"a) Heart",
+				"questionChoice2":"b) Brain",
+				"questionChoice3":"c) Liver",
+				"questionChoice4":"d) Kidney",
+				"questionCorrectChoice":"b) Brain"
+			},
+			{
+				"questionSentence":"Reflex action is an ______ reaction",
+				"questionChoice1":"a) automatic",
+				"questionChoice2":"b) autonomous",
+				"questionChoice3":"c) mechanized",
+				"questionChoice4":"d) involuntary",
+				"questionCorrectChoice":"a) automatic"
+			}
+		]
+	}
+}
+
+===================================================================
+
+Test Data 2 (Maths)
+
+{
+	"testCourseType":"Maths",
+	"testStartTime":"2021-10-25 12:00:00",
+	"testEndTime":"2021-10-25 13:00:00",
+	"testExamDate":"2021-10-25",
+	"testQuestionBank":{
+		"questionbankCourseType":"Maths_Algebra",
+		"questionbankQuestions":[
+			{
+				"questionSentence":"In the expression 15 - n = 15, then n is ____",
+				"questionChoice1":"a) n = 0",
+				"questionChoice2":"b) n = 10",
+				"questionChoice3":"c) n = 15",
+				"questionChoice4":"d) n = 5",
+				"questionCorrectChoice":"a) n = 0"
+			},
+			{
+				"questionSentence":"What is 92.53 ÷ 10 ?",
+				"questionChoice1":"a) 0.9253  ",
+				"questionChoice2":"b) 9253",
+				"questionChoice3":"c) 92.53",
+				"questionChoice4":"d) 9.253",
+				"questionCorrectChoice":"d) 9.253"
+			}
+		]
+	}
+}
+
+===================================================================
