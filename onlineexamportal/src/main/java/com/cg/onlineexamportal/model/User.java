@@ -1,5 +1,6 @@
 package com.cg.onlineexamportal.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -41,13 +42,9 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address userAddress;
 
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
-//	private Set<Test> userTests;
-	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "test_user_table", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="test_id"))
-	private Set<Test> userTests;
+	private Set<Test> userTests = new HashSet<>();
 	
 	public User() {
 		super();

@@ -1,6 +1,7 @@
 package com.cg.onlineexamportal.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,13 +9,18 @@ import org.springframework.stereotype.Service;
 
 import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.model.Admin;
+import com.cg.onlineexamportal.model.Test;
 import com.cg.onlineexamportal.repository.AdminRepository;
+import com.cg.onlineexamportal.repository.TestRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	@Autowired
+	private TestRepository testRepository;
 	
 	@Override
 	public ResponseEntity<List<Admin>> getAdmins(){
@@ -50,6 +56,17 @@ public class AdminServiceImpl implements AdminService{
 	public ResponseEntity<Admin> deleteAdminById(Long adminId) throws AdminNotFoundException {
 		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
 		adminRepository.deleteById(adminId);
+		return ResponseEntity.ok().body(admin);
+	}
+
+	@Override
+	public ResponseEntity<Admin> createTestById(Long adminId, Test test) throws AdminNotFoundException {
+		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
+		testRepository.save(test);
+		Set<Test> adminTest = admin.getAdminTests();
+		adminTest.add(test);
+		admin.setAdminTests(adminTest);
+		adminRepository.save(admin);
 		return ResponseEntity.ok().body(admin);
 	}
 }

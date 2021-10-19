@@ -1,5 +1,6 @@
 package com.cg.onlineexamportal.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -42,7 +43,7 @@ public class Admin {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_admin_id", referencedColumnName = "admin_id")
-	private Set<Test> adminTests;
+	private Set<Test> adminTests = new HashSet<>();
 	
 	public Admin() {
 		super();

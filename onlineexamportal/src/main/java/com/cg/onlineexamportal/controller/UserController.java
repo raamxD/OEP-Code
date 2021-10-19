@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.onlineexamportal.exception.TestNotFoundException;
 import com.cg.onlineexamportal.exception.UserNotFoundException;
 import com.cg.onlineexamportal.model.User;
 import com.cg.onlineexamportal.service.UserService;
@@ -47,5 +48,10 @@ public class UserController {
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<User> deleteUserById(@PathVariable(value = "id") Long userId) throws UserNotFoundException{
 		return userService.deleteUserById(userId);
+	}
+	
+	@PostMapping("/user/{id}/test/{id2}")
+	public ResponseEntity<User> enrollForTestByIdAndTestId(@PathVariable(value = "id") Long userId, @PathVariable(value = "id2") Long testId) throws UserNotFoundException,TestNotFoundException{
+		return userService.enrollForTestByIdAndTestId(userId, testId);
 	}
 }

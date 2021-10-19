@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.model.Admin;
+import com.cg.onlineexamportal.model.Test;
 import com.cg.onlineexamportal.service.AdminService;
 
 @RestController
@@ -49,4 +50,8 @@ public class AdminController {
 		return adminService.deleteAdminById(adminId);
 	}
 
+	@PostMapping("/admin/{id}/test")
+	public ResponseEntity<Admin> createTestById(@PathVariable(value = "id") Long adminId, @RequestBody Test test) throws AdminNotFoundException {
+		return adminService.createTestById(adminId, test);
+	}
 }

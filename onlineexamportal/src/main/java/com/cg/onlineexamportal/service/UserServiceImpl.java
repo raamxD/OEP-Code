@@ -1,20 +1,28 @@
 package com.cg.onlineexamportal.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.cg.onlineexamportal.repository.UserRepository;
+import com.cg.onlineexamportal.exception.TestNotFoundException;
 import com.cg.onlineexamportal.exception.UserNotFoundException;
+import com.cg.onlineexamportal.model.Test;
 import com.cg.onlineexamportal.model.User;
+import com.cg.onlineexamportal.repository.TestRepository;
+import com.cg.onlineexamportal.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private TestRepository testRepository;
+	
 	
 	@Override
 	public ResponseEntity<List<User>> getUsers(){
@@ -50,6 +58,17 @@ public class UserServiceImpl implements UserService{
 	public ResponseEntity<User> deleteUserById(Long userId) throws UserNotFoundException {
 		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("ID : " + userId + " Not Found"));
 		userRepository.deleteById(userId);
+		return ResponseEntity.ok().body(user);
+	}
+	
+	@Override
+	public ResponseEntity<User> enrollForTestByIdAndTestId(Long userId, Long testId) throws UserNotFoundException,TestNotFoundException {
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("ID : " + userId + " Not Found"));
+		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
+		Set<Test> userTest = user.getUserTests();
+		userTest.add(test);
+		user.setUserTests(userTest);
+		userRepository.save(user);
 		return ResponseEntity.ok().body(user);
 	}
 }

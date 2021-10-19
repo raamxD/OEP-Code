@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.model.Admin;
+import com.cg.onlineexamportal.model.Test;
 
 public interface AdminService {
 	
@@ -18,4 +19,6 @@ public interface AdminService {
 	public ResponseEntity<Admin> updateAdminById(Long adminId, Admin admin) throws AdminNotFoundException;
 	
 	public ResponseEntity<Admin> deleteAdminById(Long adminId) throws AdminNotFoundException;
+	
+	public ResponseEntity<Admin> createTestById(Long adminId, Test test) throws AdminNotFoundException; 
 }

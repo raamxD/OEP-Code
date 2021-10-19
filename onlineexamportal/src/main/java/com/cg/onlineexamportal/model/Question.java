@@ -18,6 +18,9 @@ public class Question{
 	@Column(name="question_id")
 	private long questionId;
 
+	@Column(name="question_sentence")
+	private String questionSentence;	
+	
 	@Column(name="question_choice1")
 	private String questionChoice1;
 
@@ -37,8 +40,10 @@ public class Question{
 		super();
 	}
 
-	public Question(String questionChoice1, String questionChoice2, String questionChoice3, String questionChoice4, String questionCorrectChoice) {
+	public Question(String questionSentence, String questionChoice1, String questionChoice2, String questionChoice3,
+			String questionChoice4, String questionCorrectChoice) {
 		super();
+		this.questionSentence = questionSentence;
 		this.questionChoice1 = questionChoice1;
 		this.questionChoice2 = questionChoice2;
 		this.questionChoice3 = questionChoice3;
@@ -46,9 +51,11 @@ public class Question{
 		this.questionCorrectChoice = questionCorrectChoice;
 	}
 
-	public Question(long questionId, String questionChoice1, String questionChoice2, String questionChoice3, String questionChoice4, String questionCorrectChoice) {
+	public Question(long questionId, String questionSentence, String questionChoice1, String questionChoice2,
+			String questionChoice3, String questionChoice4, String questionCorrectChoice) {
 		super();
 		this.questionId = questionId;
+		this.questionSentence = questionSentence;
 		this.questionChoice1 = questionChoice1;
 		this.questionChoice2 = questionChoice2;
 		this.questionChoice3 = questionChoice3;
@@ -62,6 +69,14 @@ public class Question{
 
 	public void setQuestionId(long questionId) {
 		this.questionId = questionId;
+	}
+
+	public String getQuestionSentence() {
+		return questionSentence;
+	}
+
+	public void setQuestionSentence(String questionSentence) {
+		this.questionSentence = questionSentence;
 	}
 
 	public String getQuestionChoice1() {
@@ -106,8 +121,8 @@ public class Question{
 
 	@Override
 	public String toString() {
-		return "Question [questionId=" + questionId + ", questionChoice1=" + questionChoice1 + ", questionChoice2="
-				+ questionChoice2 + ", questionChoice3=" + questionChoice3 + ", questionChoice4=" + questionChoice4
-				+ ", questionCorrectChoice=" + questionCorrectChoice + "]";
-	}	
+		return "Question [questionId=" + questionId + ", questionSentence=" + questionSentence + ", questionChoice1="
+				+ questionChoice1 + ", questionChoice2=" + questionChoice2 + ", questionChoice3=" + questionChoice3
+				+ ", questionChoice4=" + questionChoice4 + ", questionCorrectChoice=" + questionCorrectChoice + "]";
+	}
 }
