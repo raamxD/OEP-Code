@@ -11,15 +11,21 @@ import com.cg.onlineexamportal.model.User;
 public interface UserService {
 	
 	public ResponseEntity<List<User>> getUsers();
+
+	public User addUser(User user);
+	
+	// user profile functionality
 	
 	public ResponseEntity<User> getUserById(Long userId) throws UserNotFoundException;
-	
-	public User addUser(User user);
 	
 	public ResponseEntity<User> updateUserById(Long userId, User user) throws UserNotFoundException;
 	
 	public ResponseEntity<User> deleteUserById(Long userId) throws UserNotFoundException;
 	
-	public ResponseEntity<User> enrollForTestByIdAndTestId(Long userId, Long testId) throws UserNotFoundException,TestNotFoundException;
+	// user <-> test functionality
+	
+	public ResponseEntity<User> enrollForTestById(Long userId, Long testId) throws UserNotFoundException,TestNotFoundException;
+	
+	public ResponseEntity<User> disenrollForTestById(Long userId, Long testId) throws UserNotFoundException,TestNotFoundException;
 	
 }

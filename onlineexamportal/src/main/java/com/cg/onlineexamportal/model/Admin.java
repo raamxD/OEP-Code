@@ -38,10 +38,10 @@ public class Admin {
 	@Column(name = "admin_password")
 	private String adminPassword;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	private Address adminAddress;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	@JoinColumn(name = "fk_admin_id", referencedColumnName = "admin_id")
 	private Set<Test> adminTests = new HashSet<>();
 	

@@ -62,13 +62,24 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public ResponseEntity<User> enrollForTestByIdAndTestId(Long userId, Long testId) throws UserNotFoundException,TestNotFoundException {
+	public ResponseEntity<User> enrollForTestById(Long userId, Long testId) throws UserNotFoundException,TestNotFoundException {
 		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("ID : " + userId + " Not Found"));
 		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
 		Set<Test> userTest = user.getUserTests();
 		userTest.add(test);
 		user.setUserTests(userTest);
-		userRepository.save(user);
-		return ResponseEntity.ok().body(user);
+		final User updatedUser = userRepository.save(user);
+		return ResponseEntity.ok().body(updatedUser);
+	}
+
+	@Override
+	public ResponseEntity<User> disenrollForTestById(Long userId, Long testId) throws UserNotFoundException, TestNotFoundException {
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("ID : " + userId + " Not Found"));
+		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
+		Set<Test> userTest = user.getUserTests();
+		userTest.remove(test);
+		user.setUserTests(userTest);
+		final User updatedUser = userRepository.save(user);
+		return ResponseEntity.ok().body(updatedUser);
 	}
 }

@@ -41,6 +41,7 @@ public class TestServiceImpl implements TestService{
 		newTest.setTestStartTime(test.getTestStartTime());
 		newTest.setTestEndTime(test.getTestEndTime());
 		newTest.setTestExamDate(test.getTestExamDate());
+		newTest.setTestQuestionBank(test.getTestQuestionBank());
 		final Test updatedTest = testRepository.save(newTest);
 		return ResponseEntity.ok().body(updatedTest);
 	}

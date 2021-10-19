@@ -52,6 +52,6 @@ public class UserController {
 	
 	@PostMapping("/user/{id}/test/{id2}")
 	public ResponseEntity<User> enrollForTestByIdAndTestId(@PathVariable(value = "id") Long userId, @PathVariable(value = "id2") Long testId) throws UserNotFoundException,TestNotFoundException{
-		return userService.enrollForTestByIdAndTestId(userId, testId);
+		return userService.enrollForTestById(userId, testId);
 	}
 }

@@ -27,7 +27,7 @@ public class QuestionBank {
 	@Column(name = "questionbank_course_type")
 	private String questionbankCourseType;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	@JoinColumn(name = "fk_questionbank_id", referencedColumnName = "questionbank_id")
 	private Set<Question> questionbankQuestions;
 

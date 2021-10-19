@@ -39,10 +39,10 @@ public class User {
 	@Column(name = "user_password")
 	private String userPassword;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	private Address userAddress;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	@JoinTable(name = "test_user_table", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="test_id"))
 	private Set<Test> userTests = new HashSet<>();
 	

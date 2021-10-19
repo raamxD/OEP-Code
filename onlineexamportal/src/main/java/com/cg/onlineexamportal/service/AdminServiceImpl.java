@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cg.onlineexamportal.exception.AdminNotFoundException;
+import com.cg.onlineexamportal.exception.TestNotFoundException;
 import com.cg.onlineexamportal.model.Admin;
 import com.cg.onlineexamportal.model.Test;
 import com.cg.onlineexamportal.repository.AdminRepository;
@@ -21,6 +22,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	private TestRepository testRepository;
+	
+	@Autowired 
+	private TestService testService;
 	
 	@Override
 	public ResponseEntity<List<Admin>> getAdmins(){
@@ -60,13 +64,37 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	public ResponseEntity<List<Test>> getCreatedTest() {
+		return testService.getTests();
+	}
+	
+	@Override
 	public ResponseEntity<Admin> createTestById(Long adminId, Test test) throws AdminNotFoundException {
 		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
-		testRepository.save(test);
 		Set<Test> adminTest = admin.getAdminTests();
 		adminTest.add(test);
 		admin.setAdminTests(adminTest);
-		adminRepository.save(admin);
-		return ResponseEntity.ok().body(admin);
+		final Admin updatedAdmin = adminRepository.save(admin);
+		return ResponseEntity.ok().body(updatedAdmin);
+	}
+
+	@Override
+	public ResponseEntity<Admin> updateTestById(Long adminId, Long testId, Test test) throws AdminNotFoundException, TestNotFoundException {
+		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
+		testService.updateTestById(testId, test);
+		final Admin updatedAdmin = adminRepository.save(admin);
+		return ResponseEntity.ok().body(updatedAdmin);
+	}
+	
+	@Override
+	public ResponseEntity<Admin> deleteTestById(Long adminId, Long testId) throws AdminNotFoundException, TestNotFoundException {
+		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
+		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
+		testService.deleteTestById(testId);
+		Set<Test> adminTest = admin.getAdminTests();
+		adminTest.remove(test);
+		admin.setAdminTests(adminTest);
+		final Admin updatedAdmin = adminRepository.save(admin);
+		return ResponseEntity.ok().body(updatedAdmin);
 	}
 }
