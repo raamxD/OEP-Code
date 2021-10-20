@@ -9,13 +9,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "test_table")
@@ -48,22 +54,29 @@ public class Test {
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	private QuestionBank testQuestionBank;
 	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "admin_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Admin testAdmin;
+	
 	public Test() {
 		super();
 	}
 
 	public Test(String testCourseType, Date testStartTime, Date testEndTime, Date testExamDate,
-			QuestionBank testQuestionBank) {
+			QuestionBank testQuestionBank, Admin testAdmin) {
 		super();
 		this.testCourseType = testCourseType;
 		this.testStartTime = testStartTime;
 		this.testEndTime = testEndTime;
 		this.testExamDate = testExamDate;
 		this.testQuestionBank = testQuestionBank;
+		this.testAdmin = testAdmin;
 	}
 
 	public Test(long testId, String testCourseType, Date testStartTime, Date testEndTime, Date testExamDate,
-			QuestionBank testQuestionBank) {
+			QuestionBank testQuestionBank, Admin testAdmin) {
 		super();
 		this.testId = testId;
 		this.testCourseType = testCourseType;
@@ -71,6 +84,7 @@ public class Test {
 		this.testEndTime = testEndTime;
 		this.testExamDate = testExamDate;
 		this.testQuestionBank = testQuestionBank;
+		this.testAdmin = testAdmin;
 	}
 
 	public long getTestId() {
@@ -119,5 +133,20 @@ public class Test {
 
 	public void setTestQuestionBank(QuestionBank testQuestionBank) {
 		this.testQuestionBank = testQuestionBank;
+	}
+
+	public Admin getTestAdmin() {
+		return testAdmin;
+	}
+
+	public void setTestAdmin(Admin testAdmin) {
+		this.testAdmin = testAdmin;
+	}
+
+	@Override
+	public String toString() {
+		return "Test [testId=" + testId + ", testCourseType=" + testCourseType + ", testStartTime=" + testStartTime
+				+ ", testEndTime=" + testEndTime + ", testExamDate=" + testExamDate + ", testQuestionBank="
+				+ testQuestionBank + ", testAdmin=" + testAdmin + "]";
 	}
 }	

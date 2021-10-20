@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "address_table")
@@ -19,15 +20,19 @@ public class Address {
 	private long addressId;
 	
 	@Column(name = "address_zip")
+	@NotEmpty(message = "Address zip cannot be empty")
 	private int addressZip;
 	
 	@Column(name = "address_city")
+	@NotEmpty(message = "Address city cannot be empty")
 	private String addressCity;
 	
 	@Column(name = "address_state")
+	@NotEmpty(message = "Address state cannot be empty")
 	private String addressState;
 	
 	@Column(name = "address_country")
+	@NotEmpty(message = "Address country cannot be empty")
 	private String addressCountry;
 
 	public Address() {

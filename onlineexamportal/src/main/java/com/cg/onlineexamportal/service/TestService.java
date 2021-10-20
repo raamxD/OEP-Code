@@ -4,18 +4,17 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.exception.TestNotFoundException;
 import com.cg.onlineexamportal.model.Test;
 
 public interface TestService {
 
-	public ResponseEntity<List<Test>> getTests();
+	public List<Test> getTests(Long adminId) throws AdminNotFoundException;
 	
-	public ResponseEntity<Test> getTestById(Long testId) throws TestNotFoundException;
+	public Test addTest(Long adminId, Test test) throws AdminNotFoundException;
 	
-	public Test addTest(Test test);
+	public Test updateTest(Long adminId, Long testId, Test test) throws AdminNotFoundException, TestNotFoundException;
 	
-	public ResponseEntity<Test> updateTestById(Long testId, Test test) throws TestNotFoundException;
-	
-	public ResponseEntity<Test> deleteTestById(Long testId) throws TestNotFoundException;
+	public ResponseEntity<?> deleteTestById(Long adminId, Long testId) throws AdminNotFoundException, TestNotFoundException;
 }

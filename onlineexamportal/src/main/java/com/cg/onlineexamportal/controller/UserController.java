@@ -18,40 +18,56 @@ import com.cg.onlineexamportal.exception.UserNotFoundException;
 import com.cg.onlineexamportal.model.User;
 import com.cg.onlineexamportal.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/api")
+@Api(value="Online exam portal controller",description = "Operations of Usercontroller")
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
 	
+	@ApiOperation(value="View all users",response = ResponseEntity.class)
 	@GetMapping("/user")
 	public ResponseEntity<List<User>> getUsers(){
 		return userService.getUsers();
 	}
 	
+	@ApiOperation(value="View user by id",response = ResponseEntity.class)
 	@GetMapping("/user/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId) throws UserNotFoundException{
 		return userService.getUserById(userId);
 	}
 	
+	@ApiOperation(value="Add user",response = User.class)
 	@PostMapping("/user")
 	public User addUser(@RequestBody User user) {
 		return userService.addUser(user);
 	}
 	
+	@ApiOperation(value="Update user by id",response = ResponseEntity.class)
 	@PutMapping("/user/{id}")
 	public ResponseEntity<User> updateUserById(@PathVariable(value = "id") Long userId, @RequestBody User user) throws UserNotFoundException{
 		return userService.updateUserById(userId, user);
 	}
 	
+	@ApiOperation(value="Delete user by id",response = ResponseEntity.class)
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<User> deleteUserById(@PathVariable(value = "id") Long userId) throws UserNotFoundException{
 		return userService.deleteUserById(userId);
 	}
 	
+	@ApiOperation(value="Enroll for a test using id and test id",response = ResponseEntity.class)
 	@PostMapping("/user/{id}/test/{id2}")
 	public ResponseEntity<User> enrollForTestByIdAndTestId(@PathVariable(value = "id") Long userId, @PathVariable(value = "id2") Long testId) throws UserNotFoundException,TestNotFoundException{
 		return userService.enrollForTestById(userId, testId);
+	}
+	
+	@ApiOperation(value="Disenroll for a test using id and test id",response = ResponseEntity.class)
+	@DeleteMapping("/user/{id}/test/{id2}")
+	public ResponseEntity<User> disenrollForTestByIdAndTestId(@PathVariable(value = "id") Long userId, @PathVariable(value = "id2") Long testId) throws UserNotFoundException,TestNotFoundException{
+		return userService.disenrollForTestById(userId, testId);
 	}
 }

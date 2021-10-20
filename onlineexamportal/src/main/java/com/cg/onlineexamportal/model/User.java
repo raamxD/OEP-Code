@@ -16,6 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_table")
@@ -28,15 +31,23 @@ public class User {
 	private long userId;
 	
 	@Column(name = "user_name")
+	@NotEmpty
+	@Size(min=3,message="UserName should have atleast 3 characters")
 	private String userName;
 	
 	@Column(name = "user_email")
+	@NotEmpty
+	@Email
 	private String userEmail;
 	
 	@Column(name = "user_username")
+	@NotEmpty
+	@Size(min=3,message="UserName of user should have atleast 3 characters")
 	private String userUsername;
 	
 	@Column(name = "user_password")
+	@NotEmpty
+	@Size(min=5,message="Password should have atleast 5 characters")
 	private String userPassword;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })

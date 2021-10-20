@@ -15,24 +15,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
-
+	
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("package com.cg.onlineexamportal.controller"))
-				.paths(PathSelectors.regex("/.*"))
-				.build().apiInfo(apiEndPointsInfo());			
+				.apis(RequestHandlerSelectors.basePackage("com.cg.onlineexamportal.controller"))
+				.paths(PathSelectors.regex("/.*")).build().apiInfo(apiEndPointsInfo());
 	}
 
 	private ApiInfo apiEndPointsInfo() {
-		// TODO Auto-generated method stub
-		return new ApiInfoBuilder()
-				.title("Spring Boot REST API with ")
-				.description("")
-				.contact(new Contact("Capg", "Capg", "Capg"))
-				.license("")
-				.licenseUrl("")
-				.version("")
-				.build();
+		return new ApiInfoBuilder().title("Online Exam portal").description("Online Exam Portal REST API")
+				.contact(new Contact("Capgemini","www.capg.net","capg@gmail.com")).license("Apache2.0")
+				.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html").version("1.0.0").build();
 	}
 }

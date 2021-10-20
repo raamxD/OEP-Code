@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.exception.TestNotFoundException;
 import com.cg.onlineexamportal.model.Test;
+import com.cg.onlineexamportal.repository.AdminRepository;
 import com.cg.onlineexamportal.repository.TestRepository;
 
 @Service
@@ -16,40 +18,49 @@ public class TestServiceImpl implements TestService{
 	@Autowired
 	private TestRepository testRepository;
 	
+	@Autowired 
+	private AdminRepository adminRepository;
+
 	@Override
-	public ResponseEntity<List<Test>> getTests(){
-		List<Test> tests = testRepository.findAll();
-		return ResponseEntity.ok().body(tests);
+	public List<Test> getTests(Long adminId) throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		return testRepository.findByTestAdminAdminId(adminId);
 	}
 
 	@Override
-	public ResponseEntity<Test> getTestById(Long testId) throws TestNotFoundException {
-		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
-		return ResponseEntity.ok().body(test);
+	public Test addTest(Long adminId, Test test) throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		return adminRepository.findById(adminId).map(admin -> {
+			test.setTestAdmin(admin);
+			return testRepository.save(test);
+		}).orElseThrow(() -> new AdminNotFoundException("Admin " + adminId + " not found"));
 	}
 
 	@Override
-	public Test addTest(Test test) {
-		return testRepository.save(test);
+	public Test updateTest(Long adminId, Long testId, Test test) throws AdminNotFoundException, TestNotFoundException {
+		// TODO Auto-generated method stub
+		if(!adminRepository.existsById(adminId)) {
+			throw new AdminNotFoundException("Admin " + adminId + " not found");
+		}
+		return testRepository.findById(testId).map(updatedTest -> {
+			updatedTest.setTestCourseType(test.getTestCourseType());
+			updatedTest.setTestStartTime(test.getTestStartTime());
+			updatedTest.setTestEndTime(test.getTestEndTime());
+			updatedTest.setTestExamDate(test.getTestExamDate());
+			updatedTest.setTestQuestionBank(test.getTestQuestionBank());
+			return testRepository.save(updatedTest);
+		}).orElseThrow(() -> new TestNotFoundException("Test " + testId + " not found"));
 	}
 
 	@Override
-	public ResponseEntity<Test> updateTestById(Long testId, Test test) throws TestNotFoundException {
-		Test newTest = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
-		// update data here
-		newTest.setTestCourseType(test.getTestCourseType());
-		newTest.setTestStartTime(test.getTestStartTime());
-		newTest.setTestEndTime(test.getTestEndTime());
-		newTest.setTestExamDate(test.getTestExamDate());
-		newTest.setTestQuestionBank(test.getTestQuestionBank());
-		final Test updatedTest = testRepository.save(newTest);
-		return ResponseEntity.ok().body(updatedTest);
-	}
-
-	@Override
-	public ResponseEntity<Test> deleteTestById(Long testId) throws TestNotFoundException {
-		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
-		testRepository.deleteById(testId);
-		return ResponseEntity.ok().body(test);
+	public ResponseEntity<?> deleteTestById(Long adminId, Long testId) throws AdminNotFoundException, TestNotFoundException {
+		// TODO Auto-generated method stub
+		if(!adminRepository.existsById(adminId)) {
+			throw new AdminNotFoundException("Admin " + adminId + " not found");
+		}
+		return testRepository.findByTestIdAndTestAdminAdminId(testId, adminId).map(test -> {
+			testRepository.delete(test);
+			return ResponseEntity.ok().build();
+		}).orElseThrow(() -> new TestNotFoundException("Test " + testId + " not found"));
 	}
 }
