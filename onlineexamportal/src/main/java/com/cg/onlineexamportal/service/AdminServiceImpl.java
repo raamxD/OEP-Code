@@ -2,10 +2,13 @@ package com.cg.onlineexamportal.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cg.onlineexamportal.config.Status;
 import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.model.Admin;
 import com.cg.onlineexamportal.repository.AdminRepository;
@@ -23,14 +26,32 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public ResponseEntity<Admin> getAdminById(Long adminId) throws AdminNotFoundException {
-		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
-		return ResponseEntity.ok().body(admin);
+	public Status registerAdmin(@Valid Admin admin) {
+		List<Admin> admins = adminRepository.findAll();
+		for(Admin other : admins) {
+			if(other.equals(admin)){
+				return Status.ADMIN_ALREADY_EXISTS;
+			}
+		}
+		adminRepository.save(admin);
+		return Status.SUCCESS;
 	}
 
 	@Override
-	public Admin addAdmin(Admin admin) {
-		return adminRepository.save(admin);
+	public Status loginAdmin(@Valid Admin admin) {
+		List<Admin> admins = adminRepository.findAll();
+		for(Admin other : admins) {
+			if(other.equals(admin)){
+				return Status.SUCCESS;
+			}
+		}
+		return Status.FAILURE;
+	}
+	
+	@Override
+	public ResponseEntity<Admin> getAdminById(Long adminId) throws AdminNotFoundException {
+		Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("ID : " + adminId + " Not Found"));
+		return ResponseEntity.ok().body(admin);
 	}
 
 	@Override

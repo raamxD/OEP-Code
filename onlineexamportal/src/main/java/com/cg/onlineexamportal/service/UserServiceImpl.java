@@ -3,10 +3,13 @@ package com.cg.onlineexamportal.service;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cg.onlineexamportal.config.Status;
 import com.cg.onlineexamportal.exception.TestNotFoundException;
 import com.cg.onlineexamportal.exception.UserNotFoundException;
 import com.cg.onlineexamportal.model.Test;
@@ -23,22 +26,40 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private TestRepository testRepository;
 	
-	
+
 	@Override
 	public ResponseEntity<List<User>> getUsers(){
 		List<User> users = userRepository.findAll();
 		return ResponseEntity.ok().body(users);
+	}
+	
+	@Override
+	public Status registerUser(@Valid User user) {
+		List<User> users = userRepository.findAll();
+		for (User other : users) {
+			if (other.equals(user)) {
+				return Status.USER_ALREADY_EXISTS;
+			}
+		}
+		userRepository.save(user);
+		return Status.SUCCESS;
+	}
+
+	@Override
+	public Status loginUser(@Valid User user) {
+		List<User> users = userRepository.findAll();
+		for (User other : users) {
+			if (other.equals(user)) {
+				return Status.SUCCESS;
+			}
+		}
+		return Status.FAILURE;
 	}
 
 	@Override
 	public ResponseEntity<User> getUserById(Long userId) throws UserNotFoundException {
 		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("ID : " + userId + " Not Found"));
 		return ResponseEntity.ok().body(user);
-	}
-
-	@Override
-	public User addUser(User user) {
-		return userRepository.save(user);
 	}
 
 	@Override
@@ -67,17 +88,6 @@ public class UserServiceImpl implements UserService{
 		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
 		Set<Test> userTest = user.getUserTests();
 		userTest.add(test);
-		user.setUserTests(userTest);
-		final User updatedUser = userRepository.save(user);
-		return ResponseEntity.ok().body(updatedUser);
-	}
-
-	@Override
-	public ResponseEntity<User> disenrollForTestById(Long userId, Long testId) throws UserNotFoundException, TestNotFoundException {
-		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("ID : " + userId + " Not Found"));
-		Test test = testRepository.findById(testId).orElseThrow(() -> new TestNotFoundException("ID : " + testId + " Not Found"));
-		Set<Test> userTest = user.getUserTests();
-		userTest.remove(test);
 		user.setUserTests(userTest);
 		final User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok().body(updatedUser);

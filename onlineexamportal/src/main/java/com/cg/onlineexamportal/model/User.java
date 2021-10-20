@@ -20,6 +20,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "user_table")
 public class User {
@@ -32,12 +34,12 @@ public class User {
 	
 	@Column(name = "user_name")
 	@NotEmpty
-	@Size(min=3,message="UserName should have atleast 3 characters")
+	@Size(min=3, message="UserName should have atleast 3 characters")
 	private String userName;
 	
 	@Column(name = "user_email")
 	@NotEmpty
-	@Email
+	@Email(message="Enter a valid email id")
 	private String userEmail;
 	
 	@Column(name = "user_username")
@@ -140,6 +142,14 @@ public class User {
 		this.userTests = userTests;
 	}
 
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(userUsername, user.userUsername) && Objects.equals(userPassword, user.userPassword);
+    }
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userUsername="

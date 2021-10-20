@@ -1,5 +1,7 @@
 package com.cg.onlineexamportal.model;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -120,6 +122,15 @@ public class Admin {
 		this.adminAddress = adminAddress;
 	}
 
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Admin)) return false;
+        Admin admin = (Admin) o;
+        return Objects.equals(adminUsername, admin.adminUsername) && Objects.equals(adminPassword, admin.adminPassword);
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", adminEmail=" + adminEmail

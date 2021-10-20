@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -20,7 +22,8 @@ public class Address {
 	private long addressId;
 	
 	@Column(name = "address_zip")
-	@NotEmpty(message = "Address zip cannot be empty")
+	@Min(100000)
+    @Max(999999)
 	private int addressZip;
 	
 	@Column(name = "address_city")

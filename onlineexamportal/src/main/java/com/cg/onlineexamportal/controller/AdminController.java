@@ -2,6 +2,8 @@ package com.cg.onlineexamportal.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.onlineexamportal.config.Status;
 import com.cg.onlineexamportal.exception.AdminNotFoundException;
 import com.cg.onlineexamportal.model.Admin;
 import com.cg.onlineexamportal.service.AdminService;
@@ -28,6 +31,18 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	@ApiOperation(value="Register as admin",response = String.class)
+	@PostMapping("/admin/register")
+	public Status registerAdmin(@RequestBody Admin admin) {
+		return adminService.registerAdmin(admin);
+	}
+	
+	@ApiOperation(value="Login as admin",response = String.class)
+	@PostMapping("/admin/login")
+	public Status loginAdmin(@Valid @RequestBody Admin admin) {
+		return adminService.loginAdmin(admin);
+	}
+	
 	@GetMapping("/admin")
 	@ApiOperation(value="View admin",response = ResponseEntity.class)
 	public ResponseEntity<List<Admin>> getAdmins(){
@@ -38,12 +53,6 @@ public class AdminController {
 	@ApiOperation(value="View admin by id",response = ResponseEntity.class)
 	public ResponseEntity<Admin> getAdminById(@PathVariable(value = "id") Long adminId) throws AdminNotFoundException{
 		return adminService.getAdminById(adminId);
-	}
-	
-	@ApiOperation(value="Add admin",response = Admin.class)
-	@PostMapping("/admin")
-	public Admin addAdmin(@RequestBody Admin admin) {
-		return adminService.addAdmin(admin);
 	}
 	
 	@ApiOperation(value="Update admin by id",response = ResponseEntity.class)
