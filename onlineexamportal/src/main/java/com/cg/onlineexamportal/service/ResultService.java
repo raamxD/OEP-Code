@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.cg.onlineexamportal.exception.ResultNotFoundException;
+import com.cg.onlineexamportal.exception.TestNotFoundException;
+import com.cg.onlineexamportal.exception.UserNotFoundException;
 import com.cg.onlineexamportal.model.Result;
 
 public interface ResultService {
@@ -13,9 +15,7 @@ public interface ResultService {
 	
 	public ResponseEntity<Result> getResultById(Long resultId) throws ResultNotFoundException;
 	
-	public Result addResult(Result result);
+	public ResponseEntity<List<Result>> addResult(List<Result> results);
 	
-	public ResponseEntity<Result> updateResultById(Long resultId, Result result) throws ResultNotFoundException;
-	
-	public ResponseEntity<Result> deleteResultById(Long resultId) throws ResultNotFoundException;
+	public ResponseEntity<List<Result>> getResult(Long userId, Long testId) throws UserNotFoundException, TestNotFoundException; 
 }
