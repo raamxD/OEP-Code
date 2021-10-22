@@ -33,7 +33,7 @@ public class AdminController {
 	
 	@ApiOperation(value="Register as admin",response = String.class)
 	@PostMapping("/admin/register")
-	public Status registerAdmin(@RequestBody Admin admin) {
+	public Status registerAdmin(@Valid @RequestBody Admin admin) {
 		return adminService.registerAdmin(admin);
 	}
 	

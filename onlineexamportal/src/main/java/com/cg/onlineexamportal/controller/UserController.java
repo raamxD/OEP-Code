@@ -35,7 +35,7 @@ public class UserController {
 	
 	@ApiOperation(value="Add user",response = String.class)
 	@PostMapping("/user/register")
-	public Status registerUser(@RequestBody User user) {
+	public Status registerUser(@Valid @RequestBody User user) {
 		return userService.registerUser(user);
 	}
 	
@@ -44,7 +44,6 @@ public class UserController {
 	public Status loginUser(@Valid @RequestBody User user) {
         return userService.loginUser(user);
     }
-	
 	
 	@ApiOperation(value="View all users",response = ResponseEntity.class)
 	@GetMapping("/user")

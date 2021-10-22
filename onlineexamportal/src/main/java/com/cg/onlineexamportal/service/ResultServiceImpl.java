@@ -27,18 +27,33 @@ public class ResultServiceImpl implements ResultService{
 	@Autowired
 	private TestRepository testRepository;
 	
+	/**
+	 *	Method Description : Get list of all results created
+	 *	@param 
+	 *  @return ResponseEntity<List<Result>>
+	 */
 	@Override
 	public ResponseEntity<List<Result>> getResults(){
 		List<Result> results = resultRepository.findAll();
 		return ResponseEntity.ok().body(results);
 	}
 
+	/**
+	 *	Method Description : Get a results by its id
+	 *	@param Long resultId
+	 *  @return ResponseEntity<Result>
+	 */
 	@Override
 	public ResponseEntity<Result> getResultById(Long resultId) throws ResultNotFoundException {
-		Result result = resultRepository.findById(resultId).orElseThrow(() -> new ResultNotFoundException("ID : " + resultId + " Not Found"));
+		Result result = resultRepository.findById(resultId).orElseThrow(() -> new ResultNotFoundException("Result ID :: " + resultId + " Not Found"));
 		return ResponseEntity.ok().body(result);
 	}
 
+	/**
+	 *	Method Description : Create a new result
+	 *	@param List<Result> results
+	 *  @return ResponseEntity<List<Result>>
+	 */
 	@Override
 	public ResponseEntity<List<Result>> addResult(List<Result> results) {
 		List<Result> resultList = new ArrayList<Result>();
@@ -48,13 +63,18 @@ public class ResultServiceImpl implements ResultService{
 		return ResponseEntity.ok().body(resultList);
 	}
 
+	/**
+	 *	Method Description : View a result based on userId and testId
+	 *	@param Long userId, Long testId
+	 *  @return ResponseEntity<List<Result>>
+	 */
 	@Override
 	public ResponseEntity<List<Result>> getResult(Long userId, Long testId) throws UserNotFoundException, TestNotFoundException {
 		if(!userRepository.existsById(userId)) {
-			throw new UserNotFoundException("User ID " + userId + " Not Found.");
+			throw new UserNotFoundException("User ID :: " + userId + " Not Found.");
 		}
 		if(!testRepository.existsById(testId)) {
-			throw new TestNotFoundException("Test ID " + testId + " Not Found.");
+			throw new TestNotFoundException("Test ID :: " + testId + " Not Found.");
 		}
 		List<Result> resultList = new ArrayList<Result>();
 		resultList = resultRepository.findByUserIdAndTestId(userId, testId);

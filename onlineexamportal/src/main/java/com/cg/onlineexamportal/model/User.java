@@ -58,6 +58,8 @@ public class User {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	@JoinTable(name = "test_user_table", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="test_id"))
 	private Set<Test> userTests = new HashSet<>();
+
+	// constructors
 	
 	public User() {
 		super();
@@ -85,7 +87,9 @@ public class User {
 		this.userAddress = userAddress;
 		this.userTests = userTests;
 	}
-
+	
+	// getters and setters
+	
 	public long getUserId() {
 		return userId;
 	}
@@ -142,6 +146,8 @@ public class User {
 		this.userTests = userTests;
 	}
 
+	// equals method
+	
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,6 +155,8 @@ public class User {
         User user = (User) o;
         return Objects.equals(userUsername, user.userUsername) && Objects.equals(userPassword, user.userPassword);
     }
+
+	// to string method
 	
 	@Override
 	public String toString() {

@@ -38,6 +38,8 @@ public class Address {
 	@NotEmpty(message = "Address country cannot be empty")
 	private String addressCountry;
 
+	// constructors
+	
 	public Address() {
 		super();
 	}
@@ -59,6 +61,8 @@ public class Address {
 		this.addressCountry = addressCountry;
 	}
 
+	// getters and setters
+	
 	public long getAddressId() {
 		return addressId;
 	}
@@ -99,6 +103,8 @@ public class Address {
 		this.addressCountry = addressCountry;
 	}
 
+	// to string method
+	
 	@Override
 	public String toString() {
 		return "Address [addressId=" + addressId + ", addressZip=" + addressZip + ", addressCity=" + addressCity

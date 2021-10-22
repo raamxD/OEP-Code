@@ -21,26 +21,38 @@ public class TestServiceImpl implements TestService{
 	@Autowired 
 	private AdminRepository adminRepository;
 
+	/**
+	 *	Method Description : Get list of all tests created
+	 *	@param Long adminId
+	 *  @return List<Test>
+	 */
 	@Override
 	public List<Test> getTests(Long adminId) throws AdminNotFoundException {
-		// TODO Auto-generated method stub
 		return testRepository.findByTestAdminAdminId(adminId);
 	}
 
+	/**
+	 *	Method Description : Create a new test 
+	 *	@param Long adminId, Test test
+	 *  @return Test
+	 */
 	@Override
 	public Test addTest(Long adminId, Test test) throws AdminNotFoundException {
-		// TODO Auto-generated method stub
 		return adminRepository.findById(adminId).map(admin -> {
 			test.setTestAdmin(admin);
 			return testRepository.save(test);
-		}).orElseThrow(() -> new AdminNotFoundException("Admin " + adminId + " not found"));
+		}).orElseThrow(() -> new AdminNotFoundException("Admin ID :: " + adminId + " Not Found"));
 	}
 
+	/**
+	 *	Method Description : Update a test
+	 *	@param Long adminId, Long testId, Test test
+	 *  @return Test
+	 */
 	@Override
 	public Test updateTest(Long adminId, Long testId, Test test) throws AdminNotFoundException, TestNotFoundException {
-		// TODO Auto-generated method stub
 		if(!adminRepository.existsById(adminId)) {
-			throw new AdminNotFoundException("Admin " + adminId + " not found");
+			throw new AdminNotFoundException("Admin ID ::  " + adminId + " Not Found");
 		}
 		return testRepository.findById(testId).map(updatedTest -> {
 			updatedTest.setTestCourseType(test.getTestCourseType());
@@ -49,18 +61,22 @@ public class TestServiceImpl implements TestService{
 			updatedTest.setTestExamDate(test.getTestExamDate());
 			updatedTest.setTestQuestionBank(test.getTestQuestionBank());
 			return testRepository.save(updatedTest);
-		}).orElseThrow(() -> new TestNotFoundException("Test " + testId + " not found"));
+		}).orElseThrow(() -> new TestNotFoundException("Test ID :: " + testId + " Not Found"));
 	}
 
+	/**
+	 *	Method Description : Delete a test
+	 *	@param Long adminId, Long testId
+	 *  @return ResponseEntity<?>
+	 */
 	@Override
 	public ResponseEntity<?> deleteTestById(Long adminId, Long testId) throws AdminNotFoundException, TestNotFoundException {
-		// TODO Auto-generated method stub
 		if(!adminRepository.existsById(adminId)) {
-			throw new AdminNotFoundException("Admin " + adminId + " not found");
+			throw new AdminNotFoundException("Admin ID ::  " + adminId + " Not Found");
 		}
 		return testRepository.findByTestIdAndTestAdminAdminId(testId, adminId).map(test -> {
 			testRepository.delete(test);
 			return ResponseEntity.ok().build();
-		}).orElseThrow(() -> new TestNotFoundException("Test " + testId + " not found"));
+		}).orElseThrow(() -> new TestNotFoundException("Test ID :: " + testId + " Not Found"));
 	}
 }

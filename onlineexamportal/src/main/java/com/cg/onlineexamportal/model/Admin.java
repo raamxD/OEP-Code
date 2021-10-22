@@ -33,7 +33,7 @@ public class Admin {
 	
 	@Column(name = "admin_email")
 	@NotEmpty
-	@Email
+	@Email(message="Enter a valid email id")
 	private String adminEmail;
 	
 	@Column(name = "admin_username")
@@ -49,6 +49,8 @@ public class Admin {
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH })
 	private Address adminAddress;
 
+	// constructors
+	
 	public Admin() {
 		super();
 	}
@@ -74,6 +76,8 @@ public class Admin {
 		this.adminAddress = adminAddress;
 	}
 
+	// getters and setters
+	
 	public long getAdminId() {
 		return adminId;
 	}
@@ -122,6 +126,8 @@ public class Admin {
 		this.adminAddress = adminAddress;
 	}
 
+	// equals method
+	
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -129,7 +135,8 @@ public class Admin {
         Admin admin = (Admin) o;
         return Objects.equals(adminUsername, admin.adminUsername) && Objects.equals(adminPassword, admin.adminPassword);
 	}
-	
+
+	// to string method
 	
 	@Override
 	public String toString() {

@@ -59,6 +59,8 @@ public class Test {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Admin testAdmin;
+
+	// constructors
 	
 	public Test() {
 		super();
@@ -87,6 +89,8 @@ public class Test {
 		this.testAdmin = testAdmin;
 	}
 
+	// getters and setters
+	
 	public long getTestId() {
 		return testId;
 	}
@@ -143,6 +147,8 @@ public class Test {
 		this.testAdmin = testAdmin;
 	}
 
+	// to string method
+	
 	@Override
 	public String toString() {
 		return "Test [testId=" + testId + ", testCourseType=" + testCourseType + ", testStartTime=" + testStartTime

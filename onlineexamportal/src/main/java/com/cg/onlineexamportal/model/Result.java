@@ -29,28 +29,37 @@ public class Result {
 	
 	@Column(name="choice_marked")
 	private String choiceMarked;
+	
+	@Column(name="correct_choice")
+	private String correctChoice;
 
+	// constructors
+	
 	public Result() {
 		super();
 	}
 
-	public Result(long userId, long testId, long questionId, String choiceMarked) {
+	public Result(long userId, long testId, long questionId, String choiceMarked, String correctChoice) {
 		super();
 		this.userId = userId;
 		this.testId = testId;
 		this.questionId = questionId;
 		this.choiceMarked = choiceMarked;
+		this.correctChoice = correctChoice;
 	}
 
-	public Result(long resultId, long userId, long testId, long questionId, String choiceMarked) {
+	public Result(long resultId, long userId, long testId, long questionId, String choiceMarked, String correctChoice) {
 		super();
 		this.resultId = resultId;
 		this.userId = userId;
 		this.testId = testId;
 		this.questionId = questionId;
 		this.choiceMarked = choiceMarked;
+		this.correctChoice = correctChoice;
 	}
 
+	// getters and setters
+	
 	public long getResultId() {
 		return resultId;
 	}
@@ -91,9 +100,19 @@ public class Result {
 		this.choiceMarked = choiceMarked;
 	}
 
+	public String getCorrectChoice() {
+		return correctChoice;
+	}
+
+	public void setCorrectChoice(String correctChoice) {
+		this.correctChoice = correctChoice;
+	}
+
+	// to string method
+	
 	@Override
 	public String toString() {
 		return "Result [resultId=" + resultId + ", userId=" + userId + ", testId=" + testId + ", questionId="
-				+ questionId + ", choiceMarked=" + choiceMarked + "]";
+				+ questionId + ", choiceMarked=" + choiceMarked + ", correctChoice=" + correctChoice + "]";
 	}
 }

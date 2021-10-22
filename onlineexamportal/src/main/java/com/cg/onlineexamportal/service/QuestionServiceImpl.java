@@ -24,7 +24,7 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public ResponseEntity<Question> getQuestionById(Long questionId) throws QuestionNotFoundException {
-		Question question = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("ID : " + questionId + " Not Found"));
+		Question question = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("Question ID :: " + questionId + " Not Found"));
 		return ResponseEntity.ok().body(question);
 	}
 
@@ -35,7 +35,7 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public ResponseEntity<Question> updateQuestionById(Long questionId, Question question) throws QuestionNotFoundException {
-		Question newQuestion = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("ID : " + questionId + " Not Found"));
+		Question newQuestion = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("Question ID :: " + questionId + " Not Found"));
 		// update data here
 		newQuestion.setQuestionSentence(question.getQuestionSentence());
 		newQuestion.setQuestionChoice1(question.getQuestionChoice1());
@@ -49,7 +49,7 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public ResponseEntity<Question> deleteQuestionById(Long questionId) throws QuestionNotFoundException {
-		Question question = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("ID : " + questionId + " Not Found"));
+		Question question = questionRepository.findById(questionId).orElseThrow(() -> new QuestionNotFoundException("Question ID :: " + questionId + " Not Found"));
 		questionRepository.deleteById(questionId);
 		return ResponseEntity.ok().body(question);
 	}

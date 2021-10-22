@@ -24,7 +24,7 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 
 	@Override
 	public ResponseEntity<QuestionBank> getQuestionBankById(Long questionBankId) throws QuestionBankNotFoundException {
-		QuestionBank questionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("ID : " + questionBankId + " Not Found"));
+		QuestionBank questionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("Question Bank ID :: " + questionBankId + " Not Found"));
 		return ResponseEntity.ok().body(questionBank);
 	}
 
@@ -35,7 +35,7 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 
 	@Override
 	public ResponseEntity<QuestionBank> updateQuestionBankById(Long questionBankId, QuestionBank questionBank) throws QuestionBankNotFoundException {
-		QuestionBank newQuestionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("ID : " + questionBankId + " Not Found"));
+		QuestionBank newQuestionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("Question Bank ID :: " + questionBankId + " Not Found"));
 		// update data here
 		newQuestionBank.setQuestionbankCourseType(questionBank.getQuestionbankCourseType());
 		newQuestionBank.setQuestionbankQuestions(questionBank.getQuestionbankQuestions());
@@ -45,7 +45,7 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 
 	@Override
 	public ResponseEntity<QuestionBank> deleteQuestionBankById(Long questionBankId) throws QuestionBankNotFoundException {
-		QuestionBank questionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("ID : " + questionBankId + " Not Found"));
+		QuestionBank questionBank = questionBankRepository.findById(questionBankId).orElseThrow(() -> new QuestionBankNotFoundException("Question Bank ID :: " + questionBankId + " Not Found"));
 		questionBankRepository.deleteById(questionBankId);
 		return ResponseEntity.ok().body(questionBank);
 	}

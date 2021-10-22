@@ -36,6 +36,8 @@ public class Question{
 	@Column(name="question_correct_choice")
 	private String questionCorrectChoice;
 	
+	// constructors
+	
 	public Question() {
 		super();
 	}
@@ -63,6 +65,8 @@ public class Question{
 		this.questionCorrectChoice = questionCorrectChoice;
 	}
 
+	// getters and setters
+	
 	public long getQuestionId() {
 		return questionId;
 	}
@@ -119,6 +123,8 @@ public class Question{
 		this.questionCorrectChoice = questionCorrectChoice;
 	}
 
+	// to string method
+	
 	@Override
 	public String toString() {
 		return "Question [questionId=" + questionId + ", questionSentence=" + questionSentence + ", questionChoice1="

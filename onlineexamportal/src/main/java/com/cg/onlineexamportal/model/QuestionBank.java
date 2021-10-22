@@ -31,6 +31,8 @@ public class QuestionBank {
 	@JoinColumn(name = "fk_questionbank_id", referencedColumnName = "questionbank_id")
 	private Set<Question> questionbankQuestions;
 
+	// constructors
+	
 	public QuestionBank() {
 		super();
 	}
@@ -47,7 +49,9 @@ public class QuestionBank {
 		this.questionbankCourseType = questionbankCourseType;
 		this.questionbankQuestions = questionbankQuestions;
 	}
-
+	
+	// getters and setters
+		
 	public long getQuestionbankId() {
 		return questionbankId;
 	}
@@ -72,6 +76,8 @@ public class QuestionBank {
 		this.questionbankQuestions = questionbankQuestions;
 	}
 
+	// to string method
+	
 	@Override
 	public String toString() {
 		return "QuestionBank [questionbankId=" + questionbankId + ", questionbankCourseType=" + questionbankCourseType

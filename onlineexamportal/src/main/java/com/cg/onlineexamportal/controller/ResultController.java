@@ -17,28 +17,36 @@ import com.cg.onlineexamportal.exception.UserNotFoundException;
 import com.cg.onlineexamportal.model.Result;
 import com.cg.onlineexamportal.service.ResultService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/api")
+@Api(value="Online exam portal controller",description = "Operations of Resultcontroller")
 public class ResultController {
 	
 	@Autowired
 	private ResultService resultService;
 	
+	@ApiOperation(value="View all Result",response = ResponseEntity.class)
 	@GetMapping("/result")
 	public ResponseEntity<List<Result>> getResults(){
 		return resultService.getResults();
 	}
 	
+	@ApiOperation(value="View Result by id",response = ResponseEntity.class)
 	@GetMapping("/result/{id}")
 	public ResponseEntity<Result> getResultById(@PathVariable(value = "id") Long resultId) throws ResultNotFoundException{
 		return resultService.getResultById(resultId);
 	}
 	
+	@ApiOperation(value="Add result",response = Result.class)
 	@PostMapping("/result")
 	public ResponseEntity<List<Result>> addResult(@RequestBody List<Result> result){
 		return resultService.addResult(result);
 	}
 	
+	@ApiOperation(value="Get result by user id and test id",response = Result.class)
 	@GetMapping("/user/{userId}/test/{testId}/result")
 	public ResponseEntity<List<Result>> getResult(@PathVariable(value = "userId") Long userId, @PathVariable(value = "testId") Long testId) throws UserNotFoundException, TestNotFoundException{
 		return resultService.getResult(userId, testId);
